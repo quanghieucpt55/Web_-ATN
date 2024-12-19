@@ -102,9 +102,12 @@ const DashboardPage = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/login");
+    }
     const socketUrl = `wss://${tbServer}/api/ws/plugins/telemetry?token=${token}`;
     setSocketUrl(socketUrl);
-  }, []);
+  }, [router]);
   const { getWebSocket } = useWebSocket(socketUrl != "" ? socketUrl : null, {
     onOpen: () => {
       var object = {
