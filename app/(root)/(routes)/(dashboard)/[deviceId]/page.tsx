@@ -234,7 +234,7 @@ const DashboardPage = () => {
       .saveEntityAttributesV2(
         token,
         {
-          entityId: deviceId,
+          entityId: deviceId as string,
           entityType: TbEntity.DEVICE,
           scope: "SHARED_SCOPE",
         },
