@@ -37,7 +37,7 @@ const Navbar = () => {
         <MainNav />
         <div className="ml-auto flex items-center space-x-4 gap-2">
           <div className="flex flex-col text-right">
-            <span>{profileInfo ? `Chào, ${profileInfo?.firstName}` : ``}</span>
+            <span>{profileInfo ? `Chào, ${profileInfo?.lastName}` : ``}</span>
           </div>
           <Link href={"/logout"}>
             <Button>Đăng Xuất</Button>

@@ -5,7 +5,7 @@ import { SidebarNav } from "./components/sidebar-nav";
 
 const sidebarNavItems = [
   {
-    title: "Cá Nhân",
+    title: "Tài Khoản",
     href: "/settings",
     icon: <User />,
   },

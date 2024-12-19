@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "IoT Dashboard Monitor",
-  description: "IoT Dashboard Monitor using Thingsboard",
+  description: "IoT Dashboard Monitor using Thingsboard CE by QUANGHIEU",
 };
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="vi">
       <body className={inter.className}>
         <ToasterProvider />
         {children}

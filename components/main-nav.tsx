@@ -13,7 +13,7 @@ const MainNav = ({
   const routes = [
     {
       href: "/",
-      label: "Bảng Điều Khiển",
+      label: "Danh sách các Node",
       active: pathname === "/",
     },
     {

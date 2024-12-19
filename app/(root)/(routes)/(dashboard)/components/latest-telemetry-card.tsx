@@ -47,12 +47,13 @@ const LatestTelemetryCard: React.FC<LatestTelemetryCardProps> = ({
             </>
           )}
           {isBoolean && data && (
-            <p className="text-base ">
-              {data?.["value"] == "true" ? booleanArr?.[0] : booleanArr?.[1]}
-            </p>
+            <p className={`text-xl font-bold ${data.color}`}>{data.text}</p>
           )}
         </div>
-        <div className="text-sm from-muted-foreground text-gray-400">
+        <div
+          className="text-sm from-muted-foreground text-gray-400"
+          suppressHydrationWarning
+        >
           Cập nhật {moment(data?.["ts"]).format("HH:mm:ss DD/MM/YYYY")}
         </div>
         {children}

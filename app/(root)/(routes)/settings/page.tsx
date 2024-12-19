@@ -7,7 +7,7 @@ const SettingsPage = () => {
   return (
     <>
       <div className="space-y-6">
-        <Heading title="Cá Nhân" description="" />
+        <Heading title="Quang Hiếu HUST" description="" />
         <Separator />
       </div>
     </>

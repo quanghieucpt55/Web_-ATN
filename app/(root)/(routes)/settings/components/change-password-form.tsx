@@ -21,9 +21,9 @@ import { z } from "zod";
 
 const ChangePasswordFormSchema = z
   .object({
-    currentPassword: z.string().min(8),
-    newPassword: z.string().min(8),
-    confirmNewPassword: z.string().min(8),
+    currentPassword: z.string().min(6),
+    newPassword: z.string().min(6),
+    confirmNewPassword: z.string().min(6),
   })
   .refine((data) => data.newPassword === data.confirmNewPassword, {
     path: ["confirmNewPassword"],

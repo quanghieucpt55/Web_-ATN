@@ -1,4 +1,4 @@
-const LoginLayout = ({ children }: { children: React.ReactNode }) => {
+const SelecNodeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div
       style={{
@@ -13,4 +13,4 @@ const LoginLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default LoginLayout;
+export default SelecNodeLayout;
