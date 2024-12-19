@@ -41,6 +41,7 @@ const Maps: React.FC<{ selectedNodeName: string }> = ({ selectedNodeName }) => {
       />
       {nodes.map((node) => (
         <Marker
+          key={node.name}
           position={[node.latitude, node.longitude]}
           icon={node.name === selectedNodeName ? currentIcon : diffIcon}
         >
