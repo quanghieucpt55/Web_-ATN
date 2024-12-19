@@ -14,7 +14,7 @@ import {
   Compass,
 } from "lucide-react";
 import dynamic from "next/dynamic";
-import { useParams, useSearchParams, redirect } from "next/navigation";
+import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useWebSocket from "react-use-websocket";
@@ -37,6 +37,7 @@ const formatAttribute = (data: any) => {
 
 const DashboardPage = () => {
   const { deviceId } = useParams();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const nodeName = searchParams.get("name") || "Không rõ tên node";
   const [loading, setLoading] = useState(false);
@@ -103,7 +104,7 @@ const DashboardPage = () => {
     const token = localStorage.getItem("token");
     const socketUrl = `wss://${tbServer}/api/ws/plugins/telemetry?token=${token}`;
     setSocketUrl(socketUrl);
-  }, [deviceId]);
+  }, []);
   const { getWebSocket } = useWebSocket(socketUrl != "" ? socketUrl : null, {
     onOpen: () => {
       var object = {
@@ -132,7 +133,7 @@ const DashboardPage = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      redirect("/login");
+      router.push("/login");
     }
 
     const getData = async () => {
@@ -156,12 +157,12 @@ const DashboardPage = () => {
     };
 
     getData();
-  }, [deviceId]);
+  }, [deviceId, router]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      redirect("/login");
+      router.push("/login");
     }
 
     const getData = async () => {
@@ -185,14 +186,14 @@ const DashboardPage = () => {
     };
 
     getData();
-  }, [saveState, deviceId]);
+  }, [saveState, deviceId, router]);
 
   const now = Date.now();
 
   const onSave = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      redirect("/login");
+      router.push("/login");
     }
 
     await axios
@@ -224,13 +225,13 @@ const DashboardPage = () => {
   const onClickDevice = async (data: any) => {
     const token = localStorage.getItem("token");
     if (!token) {
-      redirect("/login");
+      router.push("/login");
     }
 
     await thingsboard
       .telemetry()
       .saveEntityAttributesV2(
-        token,
+        token as string,
         {
           entityId: deviceId as string,
           entityType: TbEntity.DEVICE,
