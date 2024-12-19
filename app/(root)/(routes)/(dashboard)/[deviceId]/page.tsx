@@ -103,7 +103,7 @@ const DashboardPage = () => {
     const token = localStorage.getItem("token");
     const socketUrl = `wss://${tbServer}/api/ws/plugins/telemetry?token=${token}`;
     setSocketUrl(socketUrl);
-  }, []);
+  }, [deviceId]);
   const { getWebSocket } = useWebSocket(socketUrl != "" ? socketUrl : null, {
     onOpen: () => {
       var object = {
@@ -156,7 +156,7 @@ const DashboardPage = () => {
     };
 
     getData();
-  }, []);
+  }, [deviceId]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -185,7 +185,7 @@ const DashboardPage = () => {
     };
 
     getData();
-  }, [saveState]);
+  }, [saveState, deviceId]);
 
   const now = Date.now();
 

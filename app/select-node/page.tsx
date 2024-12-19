@@ -54,7 +54,7 @@ const SelectNodePage = () => {
     };
 
     fetchNodes();
-  }, []);
+  }, [router]);
 
   const handleNodeClick = (deviceId: string, nodeName: string) => {
     const nodeNameEncoded = encodeURIComponent(nodeName);
