@@ -1,9 +1,8 @@
-import { thingsboard } from "@/lib/tbClient";
 import { NextResponse } from "next/server";
+import { getTenantDeviceInfos } from "../../../utils/thingsboardApi";
 
 export async function POST(req: Request) {
   try {
-    // Lấy dữ liệu từ body request
     const { token, deviceProfileId, pageSize, page, sortProperty, sortOrder } =
       await req.json();
 
@@ -14,7 +13,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Chuẩn bị query
     const query = {
       pageSize,
       page,
@@ -23,10 +21,9 @@ export async function POST(req: Request) {
       sortOrder,
     };
 
-    // Gọi ThingsBoard API để lấy danh sách thiết bị
-    const resp = await thingsboard.device().getTenantDeviceInfos(token, query);
+    const resp = await getTenantDeviceInfos(token, query);
 
-    return NextResponse.json(resp.data);
+    return NextResponse.json(resp);
   } catch (err: any) {
     return NextResponse.json(
       {

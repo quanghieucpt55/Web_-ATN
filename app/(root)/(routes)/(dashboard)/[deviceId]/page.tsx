@@ -11,8 +11,6 @@ import {
   AlertTriangle,
   Droplet,
   Thermometer,
-  Ruler,
-  Move,
   Compass,
 } from "lucide-react";
 import dynamic from "next/dynamic";

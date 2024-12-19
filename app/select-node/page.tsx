@@ -29,7 +29,7 @@ const SelectNodePage = () => {
           sortOrder: "ASC",
         })
         .then((response) => {
-          const devices = response.data;
+          const devices = response.data.data;
           if (devices && devices.length > 0) {
             const nodes = devices
               .filter((device: any) => !device.additionalInfo?.gateway)
