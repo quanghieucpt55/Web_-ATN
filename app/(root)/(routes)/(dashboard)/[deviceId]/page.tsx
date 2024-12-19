@@ -379,7 +379,7 @@ const DashboardPage = () => {
           </CardHeader>
           <CardContent>
             <TelemetryChart
-              entityId={deviceId}
+              entityId={deviceId as string}
               entityType={TbEntity.DEVICE}
               label={"Độ Ẩm"}
               targetkey={"sm"}
@@ -394,7 +394,7 @@ const DashboardPage = () => {
           </CardHeader>
           <CardContent>
             <TelemetryChart
-              entityId={deviceId}
+              entityId={deviceId as string}
               entityType={TbEntity.DEVICE}
               label={"Góc Nghiêng"}
               targetkey={"tilt"}
