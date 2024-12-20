@@ -29,7 +29,7 @@ const Navbar = () => {
         });
     };
     getData();
-  }, []);
+  }, [router]);
 
   return (
     <div className="border-b">
