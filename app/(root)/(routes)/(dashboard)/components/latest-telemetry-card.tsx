@@ -34,7 +34,15 @@ const LatestTelemetryCard: React.FC<LatestTelemetryCardProps> = ({
   return (
     <Card className={cn(`${className}`)}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
+        <CardTitle
+          className="text-2xl font-sans font-bold text-transparent bg-clip-text bg-gradient-to-r"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right,rgb(62, 65, 89),rgb(91, 121, 184))",
+          }}
+        >
+          {title}
+        </CardTitle>
         {icon}
       </CardHeader>
       <CardContent>

@@ -4,6 +4,22 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { config } from "@/lib/config";
 import { useRouter, redirect } from "next/navigation";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
 
 const deviceProfileId = config.deviceProfileId;
 const SelectNodePage = () => {
@@ -77,22 +93,22 @@ const SelectNodePage = () => {
   }
 
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center">
-      <h1 className="text-4xl text-gray-100 font-bold mb-5 text-center">
+    <CardHeader className="w-full h-screen flex flex-col items-center justify-center">
+      <CardTitle className="text-4xl text-blue-100 font-bold mb-5 text-center">
         Chọn Node
-      </h1>
-      <div className="flex flex-col gap-4 w-1/2">
+      </CardTitle>
+      <CardContent className="flex flex-col gap-4 w-1/2">
         {nodes.map((node: any) => (
-          <button
+          <Button
             key={node.id}
             className="bg-white/5 text-2xl font-extrabold text-gray-200 backdrop-blur-lg px-4 py-2 rounded-lg shadow-xl"
             onClick={() => handleNodeClick(node.id, node.name)}
           >
             {node.name}
-          </button>
+          </Button>
         ))}
-      </div>
-    </div>
+      </CardContent>
+    </CardHeader>
   );
 };
 
