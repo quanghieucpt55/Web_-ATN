@@ -301,7 +301,7 @@ const DashboardPage = () => {
         </LatestTelemetryCard>
 
         <LatestTelemetryCard
-          title="Độ Ẩm"
+          title="Độ ẩm"
           icon={<Droplet className="h-8 w-8 text-muted-foreground" />}
           data={latestData?.["sm"][0]}
           loading={loading}
