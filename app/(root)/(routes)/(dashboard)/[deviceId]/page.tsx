@@ -23,7 +23,7 @@ import InputThreshold from "../components/input-threshold";
 import LatestTelemetryCard from "../components/latest-telemetry-card";
 import TelemetryChart from "../components/telemetry-chart";
 
-const tbServer = config.tbServer;
+const { tbServer, deviceID_GW } = config;
 const keys = "temp,sm,tilt,longitude,latitude,warn";
 const attrKeys = "sm_upper,sm_lower,tilt_upper,tilt_lower,buzzer";
 
@@ -173,7 +173,7 @@ const DashboardPage = () => {
       await axios
         .post(`/api/telemetry/attribute`, {
           token,
-          deviceId,
+          deviceID_GW,
           keys: attrKeys,
         })
         .then((resp) => {
@@ -189,7 +189,7 @@ const DashboardPage = () => {
     };
 
     getData();
-  }, [saveState, deviceId, router]);
+  }, [saveState, router]);
 
   const now = Date.now();
 
@@ -202,7 +202,7 @@ const DashboardPage = () => {
     await axios
       .post(`/api/telemetry/attribute/save`, {
         token,
-        deviceId,
+        deviceID_GW,
         payload: {
           ...attribute,
           [edit.key]: parseFloat(edit.value),
@@ -236,7 +236,7 @@ const DashboardPage = () => {
       .saveEntityAttributesV2(
         token as string,
         {
-          entityId: deviceId as string,
+          entityId: deviceID_GW as string,
           entityType: TbEntity.DEVICE,
           scope: "SHARED_SCOPE",
         },

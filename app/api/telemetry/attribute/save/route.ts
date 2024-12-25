@@ -5,11 +5,11 @@ import { TbEntity } from "thingsboard-api-client";
 export async function POST(req: Request) {
   try {
     const data = await req.json();
-    const { token, deviceId, payload } = data;
+    const { token, deviceID_GW, payload } = data;
     const resp = await thingsboard.telemetry().saveEntityAttributesV2(
       token,
       {
-        entityId: deviceId,
+        entityId: deviceID_GW,
         entityType: TbEntity.DEVICE,
         scope: "SHARED_SCOPE",
       },
