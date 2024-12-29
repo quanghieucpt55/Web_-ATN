@@ -34,7 +34,9 @@ const formatAttribute = (data: any) => {
   });
   return format;
 };
-
+const Maps = dynamic(() => import("../components/maps"), {
+  ssr: false,
+});
 const DashboardPage = () => {
   const { deviceId } = useParams();
   const router = useRouter();
@@ -54,52 +56,36 @@ const DashboardPage = () => {
         ...prev,
         tilt: [
           {
-            ts: obj?.["tilt"]?.[0]?.[0],
             value: obj?.["tilt"]?.[0]?.[1],
           },
         ],
         sm: [
           {
-            ts: obj?.["sm"]?.[0]?.[0],
             value: obj?.["sm"]?.[0]?.[1],
           },
         ],
-        temp: obj?.["temp"]
-          ? [
-              {
-                ts: obj?.["temp"]?.[0]?.[0],
-                value: obj?.["temp"]?.[0]?.[1],
-              },
-            ]
-          : prev?.["temp"],
-        warn: obj?.["warn"]
-          ? [
-              {
-                ts: obj?.["warn"]?.[0]?.[0],
-                value: obj?.["warn"]?.[0]?.[1],
-              },
-            ]
-          : prev?.["warn"],
-        latitude: obj?.["latitude"]
-          ? [
-              {
-                ts: obj?.["latitude"]?.[0]?.[0],
-                value: obj?.["latitude"]?.[0]?.[1],
-              },
-            ]
-          : prev?.["latitude"],
-        longitude: obj?.["longitude"]
-          ? [
-              {
-                ts: obj?.["longitude"]?.[0]?.[0],
-                value: obj?.["longitude"]?.[0]?.[1],
-              },
-            ]
-          : prev?.["longitude"],
+        temp: [
+          {
+            value: obj?.["temp"]?.[0]?.[1],
+          },
+        ],
+        warn: [
+          {
+            value: obj?.["warn"]?.[0]?.[1],
+          },
+        ],
       };
     });
   };
 
+  const updateAttributes = (obj: any) => {
+    setAttribute((prev: any) => {
+      return {
+        ...prev,
+        buzzer: obj?.["buzzer"]?.[0]?.[1] == "true" ? true : false,
+      };
+    });
+  };
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -120,15 +106,27 @@ const DashboardPage = () => {
           },
         ],
         historyCmds: [],
-        attrSubCmds: [],
+        attrSubCmds: [
+          {
+            entityType: "DEVICE",
+            entityId: deviceID_GW,
+            keys: "buzzer",
+            scope: "SHARED_SCOPE",
+            cmdId: 20,
+          },
+        ],
       };
       var data = JSON.stringify(object);
       getWebSocket().send(data);
     },
     onMessage: (event) => {
-      let obj = JSON.parse(event.data).data;
-      setPing(!ping);
-      updateLatestData(obj);
+      let message = JSON.parse(event.data);
+      let obj = message.data;
+      if (message.subscriptionId === 10) {
+        updateLatestData(obj);
+      } else if (message.subscriptionId === 20) {
+        updateAttributes(obj);
+      }
     },
     onClose: () => {},
   }) as any;
@@ -220,10 +218,6 @@ const DashboardPage = () => {
         setEdit({ key: "", value: "" });
       });
   };
-
-  const Maps = dynamic(() => import("../components/maps"), {
-    ssr: false,
-  });
 
   const onClickDevice = async (data: any) => {
     const token = localStorage.getItem("token");
