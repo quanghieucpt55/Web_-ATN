@@ -25,7 +25,7 @@ import TelemetryChart from "../components/telemetry-chart";
 
 const { tbServer, deviceID_GW } = config;
 const keys = "temp,sm,tilt,longitude,latitude,warn";
-const attrKeys = "sm_upper,sm_lower,tilt_upper,tilt_lower,buzzer";
+const attrKeys = "sm_upper,sm_lower,tilt_upper,tilt_lower,buzzer,set_time";
 
 const formatAttribute = (data: any) => {
   let format = {} as any;
@@ -47,7 +47,6 @@ const DashboardPage = () => {
   const [attribute, setAttribute] = useState() as any;
   const [socketUrl, setSocketUrl] = useState("");
   const [saveState, setSaveState] = useState(false);
-  const [ping, setPing] = useState(false);
   const [edit, setEdit] = useState({ key: "", value: "" });
 
   const updateLatestData = (obj: any) => {
@@ -258,7 +257,19 @@ const DashboardPage = () => {
           data={latestData?.["temp"][0]}
           loading={loading}
           unit="°C"
-        ></LatestTelemetryCard>
+        >
+          <div className="flex flex-col gap-2">
+            <InputThreshold
+              title="Thời gian lấy dữ liệu (s)"
+              targetKey="set_time"
+              setEdit={setEdit}
+              edit={edit}
+              min={1}
+              attribute={attribute}
+              onSave={onSave}
+            />
+          </div>
+        </LatestTelemetryCard>
 
         <LatestTelemetryCard
           title="Cảnh báo"
@@ -318,6 +329,7 @@ const DashboardPage = () => {
               targetKey="sm_upper"
               setEdit={setEdit}
               edit={edit}
+              max={100}
               attribute={attribute}
               onSave={onSave}
             />
@@ -326,6 +338,7 @@ const DashboardPage = () => {
               targetKey="sm_lower"
               setEdit={setEdit}
               edit={edit}
+              min={0}
               attribute={attribute}
               onSave={onSave}
             />
@@ -356,6 +369,7 @@ const DashboardPage = () => {
               targetKey="tilt_upper"
               setEdit={setEdit}
               edit={edit}
+              max={180}
               attribute={attribute}
               onSave={onSave}
             />
@@ -364,6 +378,7 @@ const DashboardPage = () => {
               targetKey="tilt_lower"
               setEdit={setEdit}
               edit={edit}
+              min={0}
               attribute={attribute}
               onSave={onSave}
             />

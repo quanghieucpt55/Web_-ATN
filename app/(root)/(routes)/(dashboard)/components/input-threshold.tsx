@@ -1,13 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Check, Edit, XCircle } from "lucide-react";
-import React, { useCallback } from "react";
+import React from "react";
+import toast from "react-hot-toast";
 
 interface InputThresholdProps {
   title: string;
   targetKey: string;
   setEdit: any;
   edit: any;
+  min?: number;
+  max?: number;
   attribute: any;
   onSave: any;
 }
@@ -17,6 +20,8 @@ const InputThreshold: React.FC<InputThresholdProps> = ({
   targetKey,
   setEdit,
   edit,
+  min = -Infinity,
+  max = Infinity,
   attribute,
   onSave,
 }) => {
@@ -43,7 +48,13 @@ const InputThreshold: React.FC<InputThresholdProps> = ({
             variant={"ghost"}
             size={"sm"}
             className="rounded-full"
-            onClick={onSave}
+            onClick={() => {
+              if (edit.value >= min && edit.value <= max) {
+                onSave();
+              } else {
+                toast.error(`Giá trị nhập không hợp lệ`);
+              }
+            }}
           >
             <Check className="w-4 h-4" />
           </Button>
